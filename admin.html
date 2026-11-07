@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f766e" />
+    <title>ACFBI | Administrative Management Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=8" />
+  </head>
+  <body class="admin-body-only">
+    <div class="admin-portal-wrapper">
+      <!-- ADMIN HEADER -->
+      <header class="admin-header">
+        <div class="brand compact">
+          <span class="brand-mark"
+            ><span></span><span></span><span></span
+          ></span>
+          <span>ACFB<span>I</span></span>
+        </div>
+        <div class="admin-title">
+          <p class="eyebrow">AFRICAN CAMPUS FOOD BANK INITIATIVE</p>
+          <h2>Administrative Management Portal</h2>
+        </div>
+        <div class="admin-right">
+          <button
+            class="icon-button"
+            id="adminNotification"
+            aria-label="Notifications"
+          >
+            ♧<i></i>
+          </button>
+          <button class="profile-button" id="adminProfile">
+            <span>YI</span>
+            <strong>Yusuf Iteoluwakiishi</strong>
+            <b>⌄</b>
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-body">
+        <!-- ADMIN NAVIGATION SIDEBAR -->
+        <aside class="admin-sidebar">
+          <button class="admin-nav active" data-admin-page="admin-overview">
+            <span>▦</span> Overview
+          </button>
+          <button class="admin-nav" data-admin-page="admin-applications">
+            <span>▤</span> Applications <b id="pendingBadge">0</b>
+          </button>
+          <button class="admin-nav" data-admin-page="admin-distribution">
+            <span>□</span> Distribution Schedule
+          </button>
+          <button class="admin-nav" data-admin-page="admin-reports">
+            <span>◔</span> Reports & Analytics
+          </button>
+          <div class="admin-bottom">
+            <a href="index.html" class="admin-nav" id="adminLogout">
+              <span>⇥</span> Exit to Main Portal
+            </a>
+          </div>
+        </aside>
+
+        <!-- MAIN ADMIN DASHBOARD CONTENT -->
+        <main class="admin-main">
+          <!-- SECTION 1: OVERVIEW -->
+          <section id="admin-overview" class="admin-page">
+            <div class="page-title">
+              <div>
+                <p class="eyebrow">DASHBOARD OVERVIEW</p>
+                <h1>Good morning, Yusuf.</h1>
+                <p>
+                  Summary of campus food assistance, cohort screening, and
+                  distribution operations.
+                </p>
+              </div>
+              <button class="secondary-button" id="exportSummary">
+                ⇩ Export Summary
+              </button>
+            </div>
+
+            <div class="admin-stat-grid">
+              <article class="stat-card">
+                <span class="metric-icon yellow">▤</span>
+                <p>Pending Screening</p>
+                <h2 id="pendingCount">0</h2>
+                <small>Awaiting committee review</small>
+              </article>
+              <article class="stat-card">
+                <span class="metric-icon green">✓</span>
+                <p>Enrolled Cohort</p>
+                <h2 id="approvedCount">0</h2>
+                <small>Verified for current semester</small>
+              </article>
+              <article class="stat-card">
+                <span class="metric-icon purple">▣</span>
+                <p>Hampers Distributed</p>
+                <h2 id="distributedCount">0</h2>
+                <small>Total handovers recorded</small>
+              </article>
+              <article class="stat-card">
+                <span class="metric-icon coral">⌁</span>
+                <p>Emergency Requests</p>
+                <h2 id="urgentCount">0</h2>
+                <small class="urgent-copy">48-hour priority relief</small>
+              </article>
+            </div>
+
+            <div class="admin-grid">
+              <article class="card admin-list-card">
+                <div class="card-heading">
+                  <div>
+                    <h2>Applications Awaiting Screening</h2>
+                    <p>Prioritize 48-hour emergency request flags first.</p>
+                  </div>
+                  <button
+                    class="text-button"
+                    data-admin-page="admin-applications"
+                  >
+                    View all →
+                  </button>
+                </div>
+                <div id="awaitingList" class="awaiting-list">
+                  <!-- Dynamically populated via app.js -->
+                </div>
+              </article>
+
+              <article class="card activity-card">
+                <div class="card-heading">
+                  <div>
+                    <h2>Recent Operations Activity</h2>
+                    <p>
+                      Latest updates across semester intake and emergency
+                      drives.
+                    </p>
+                  </div>
+                </div>
+                <div id="activityList" class="activity-list">
+                  <!-- Dynamically populated via app.js -->
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- SECTION 2: APPLICATIONS SCREENING -->
+          <section id="admin-applications" class="admin-page hidden">
+            <div class="page-title">
+              <div>
+                <p class="eyebrow">STUDENT REQUESTS</p>
+                <h1>Applications & Screening</h1>
+                <p>
+                  Confidential evaluation for semester cohort enrollment and
+                  emergency assistance.
+                </p>
+              </div>
+              <button class="secondary-button" id="exportApplications">
+                ⇩ Export Application Data
+              </button>
+            </div>
+
+            <div class="filter-row">
+              <div class="search-box">
+                ⌕
+                <input
+                  id="applicationSearch"
+                  placeholder="Search by student name or matric number"
+                />
+              </div>
+              <select id="statusFilter">
+                <option value="all">All Application Statuses</option>
+                <option value="Pending">Pending Screening</option>
+                <option value="Approved">Approved / Enrolled Cohort</option>
+                <option value="Rejected">Declined Requests</option>
+              </select>
+            </div>
+
+            <div class="card table-card admin-table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>STUDENT</th>
+                    <th>SESSION / HAMPER</th>
+                    <th>NEED LEVEL</th>
+                    <th>SUBMITTED</th>
+                    <th>STATUS</th>
+                    <th>ACTIONS</th>
+                  </tr>
+                </thead>
+                <tbody id="adminApplicationsBody">
+                  <!-- Dynamically populated via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- SECTION 3: CAMPUS DISTRIBUTION SCHEDULE -->
+          <section id="admin-distribution" class="admin-page hidden">
+            <div class="page-title">
+              <div>
+                <p class="eyebrow">CAMPUS FOOD BANK CENTRE</p>
+                <h1>Distribution & Pick-up Slots</h1>
+                <p>
+                  Manage bi-weekly collection slots and record food package
+                  handovers at the Student Union Centre.
+                </p>
+              </div>
+              <button class="primary-button" id="newSlot">
+                ＋ Add Collection Slot
+              </button>
+            </div>
+
+            <div class="distribution-grid">
+              <article class="card">
+                <h2>Upcoming Bi-Weekly Collection Slots</h2>
+                <div id="sessionsList" class="sessions-list">
+                  <p style="color: #7b8b87; text-align: center; padding: 16px">
+                    No distribution slots currently scheduled.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card">
+                <h2>Record Package Handover</h2>
+                <div class="collection-progress">
+                  <p>
+                    Track package handovers for verified student IDs in real
+                    time.
+                  </p>
+                  <button class="secondary-button" id="recordCollection">
+                    Record Package Handover
+                  </button>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- SECTION 4: PROGRAM REPORTS & ANALYTICS -->
+          <section id="admin-reports" class="admin-page hidden">
+            <div class="page-title">
+              <div>
+                <p class="eyebrow">PROGRAM EVALUATION</p>
+                <h1>Reports & Impact Metrics</h1>
+                <p>
+                  Monitor campus reach, beneficiary volume, and hardship
+                  mitigation indicators.
+                </p>
+              </div>
+              <button class="secondary-button" id="downloadReport">
+                ⇩ Download Full Analytics Report
+              </button>
+            </div>
+
+            <div class="analytics-grid">
+              <article class="card full-span insight-table">
+                <h2>ACFBI Demand & Performance Metrics Summary</h2>
+                <p style="padding: 16px; color: #7b8b87">
+                  Metrics update automatically as applicant intake cycles and
+                  distributions are processed.
+                </p>
+              </article>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- MODAL & NOTIFICATION CONTAINER -->
+    <div class="modal-backdrop hidden" id="modalBackdrop">
+      <div class="modal" id="modal">
+        <button class="modal-close" id="modalClose">×</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="app.js?v=8"></script>
+    <script>
+      // Automatically switch to admin view on script load for admin.html
+      document.addEventListener("DOMContentLoaded", () => {
+        if (typeof switchMainView === "function") {
+          switchMainView("admin");
+        }
+      });
+    </script>
+  </body>
+</html>

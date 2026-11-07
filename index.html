@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f766e" />
+    <title>ACFBI | Campus Food Support Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=7" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#" aria-label="ACFBI home">
+          <span class="brand-mark"
+            ><span></span><span></span><span></span
+          ></span>
+          <span>ACFB<span>I</span></span>
+        </a>
+        <div class="sidebar-copy">
+          <p class="eyebrow">AFRICAN CAMPUS FOOD BANK INITIATIVE</p>
+          <h2>Feeding students, fueling futures.</h2>
+          <p>
+            Dignified, confidential, and equitable campus food assistance when
+            you need it most.
+          </p>
+        </div>
+        <div class="sidebar-footer">
+          <span class="privacy-dot"></span> Strictly confidential student
+          support
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <button class="mobile-brand" id="mobileMenu" aria-label="Open menu">
+          <span class="brand-mark"
+            ><span></span><span></span><span></span
+          ></span>
+          ACFB<span>I</span>
+        </button>
+
+        <!-- UNIFIED AUTH VIEW -->
+        <section id="authView" class="auth-view">
+          <div class="auth-intro">
+            <p class="eyebrow">WELCOME TO ACFBI</p>
+            <h1>Focus on your studies, <em>not</em> your next meal.</h1>
+            <p>
+              Access semester food bank enrollment, request emergency relief, or
+              manage distributions.
+            </p>
+          </div>
+          <div class="auth-card">
+            <div class="tab-list" role="tablist">
+              <button class="tab active" data-auth-tab="login">Sign in</button>
+              <button class="tab" data-auth-tab="register">
+                Student registration
+              </button>
+            </div>
+            <form id="loginForm" class="auth-form">
+              <label
+                >Institutional Email
+                <input
+                  type="email"
+                  id="loginEmail"
+                  placeholder="you@university.edu"
+                  required
+                />
+              </label>
+              <label
+                >Password
+                <div class="password-wrap">
+                  <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="show-password"
+                    aria-label="Show password"
+                  >
+                    Show
+                  </button>
+                </div>
+              </label>
+              <div class="auth-options">
+                <label class="check-label"
+                  ><input type="checkbox" /> Remember me</label
+                >
+                <button type="button" class="text-button" id="forgotPassword">
+                  Forgot password?
+                </button>
+              </div>
+              <button class="primary-button full" type="submit">
+                Sign in <span>→</span>
+              </button>
+            </form>
+
+            <form id="registerForm" class="auth-form hidden">
+              <div class="two-col">
+                <label
+                  >First name<input
+                    type="text"
+                    id="firstName"
+                    placeholder="Amina"
+                    required
+                /></label>
+                <label
+                  >Last name<input
+                    type="text"
+                    id="lastName"
+                    placeholder="Okafor"
+                    required
+                /></label>
+              </div>
+              <label
+                >School email<input
+                  type="email"
+                  id="registerEmail"
+                  placeholder="you@university.edu"
+                  required
+              /></label>
+              <label
+                >Matric number<input
+                  type="text"
+                  id="registerMatric"
+                  placeholder="e.g. U2023/123456"
+                  required
+              /></label>
+              <label
+                >Create password
+                <div class="password-wrap">
+                  <input
+                    type="password"
+                    id="registerPassword"
+                    minlength="6"
+                    placeholder="Minimum 6 characters"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="show-password"
+                    aria-label="Show password"
+                  >
+                    Show
+                  </button>
+                </div>
+              </label>
+              <label class="check-label terms"
+                ><input type="checkbox" required /> I agree to the ACFBI terms
+                of student support and privacy policy.</label
+              >
+              <button class="primary-button full" type="submit">
+                Create secure account <span>→</span>
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <!-- STUDENT DASHBOARD -->
+        <section id="studentView" class="dashboard-view hidden">
+          <header class="topbar">
+            <div>
+              <p class="eyebrow" id="studentDate"></p>
+              <h1>Good morning, <span id="studentName">Student</span>.</h1>
+            </div>
+            <div class="top-actions">
+              <button
+                class="icon-button notification-button"
+                id="notificationButton"
+                aria-label="Notifications"
+              >
+                ♧<i></i>
+              </button>
+              <button class="profile-button" id="profileButton">
+                <span id="profileInitials">ST</span
+                ><strong id="profileName">Student</strong><b>⌄</b>
+              </button>
+              <button
+                class="secondary-button"
+                id="studentLogout"
+                style="padding: 6px 12px; font-size: 0.85rem"
+              >
+                Sign out
+              </button>
+            </div>
+          </header>
+
+          <div id="notificationsPanel" class="notifications-panel hidden">
+            <div class="panel-heading">
+              <strong>Notifications</strong
+              ><button class="text-button" id="markRead">Mark all read</button>
+            </div>
+            <div id="notificationList"></div>
+          </div>
+
+          <nav class="dashboard-nav" aria-label="Student navigation">
+            <button class="nav-item active" data-student-page="overview">
+              Overview
+            </button>
+            <button class="nav-item" data-student-page="apply">
+              Apply for food support
+            </button>
+            <button class="nav-item" data-student-page="history">
+              Application history
+            </button>
+            <button class="nav-item" data-student-page="schedule">
+              Pick-up schedule
+            </button>
+          </nav>
+
+          <section id="student-overview" class="student-page">
+            <div class="stat-grid">
+              <article class="stat-card">
+                <span class="stat-icon teal">✓</span>
+                <p>Enrollment status</p>
+                <h3 id="currentStatus">None</h3>
+                <small id="statusCaption">No active semester application</small>
+              </article>
+              <article class="stat-card">
+                <span class="stat-icon amber">▣</span>
+                <p>Food hampers received</p>
+                <h3 id="packagesCount">0</h3>
+                <small>Bi-weekly pickups this semester</small>
+              </article>
+              <article class="stat-card">
+                <span class="stat-icon coral">◷</span>
+                <p>Next pick-up window</p>
+                <h3 id="nextCollection">N/A</h3>
+                <small>Campus Food Bank Centre</small>
+              </article>
+            </div>
+            <div class="content-grid overview-grid">
+              <article class="card help-card">
+                <div class="help-art">
+                  <span>♢</span><span>○</span><span>✦</span>
+                </div>
+                <p class="eyebrow">ACFBI CAMPUS SUPPORT</p>
+                <h2>Empowering your academic journey.</h2>
+                <p>
+                  Facing unexpected hardship? Reach out directly to your local
+                  campus coordinator.
+                </p>
+                <button class="text-button" id="contactSupport">
+                  Contact campus coordinator →
+                </button>
+              </article>
+            </div>
+          </section>
+
+          <section id="student-apply" class="student-page hidden">
+            <div class="page-title">
+              <div>
+                <p class="eyebrow">CAMPUS FOOD BANK INTAKE</p>
+                <h2>Apply for food assistance</h2>
+                <p>
+                  Applications are screened confidentially by the committee.
+                </p>
+              </div>
+              <span class="confidential-badge">◈ ACFBI Confidential</span>
+            </div>
+            <form id="applicationForm" class="application-form card">
+              <div class="form-section">
+                <h3>1. Student Verification</h3>
+                <p>
+                  Ensure details match your active institutional registration.
+                </p>
+                <div class="two-col">
+                  <label
+                    >Matric number<input
+                      id="appMatric"
+                      required
+                      placeholder="e.g. U2023/123456" /></label
+                  ><label
+                    >University email<input
+                      id="appEmail"
+                      type="email"
+                      required
+                      placeholder="you@university.edu"
+                  /></label>
+                </div>
+                <label
+                  >Student ID card <span class="optional">(Image or PDF)</span>
+                  <div class="file-upload">
+                    <input
+                      type="file"
+                      id="idUpload"
+                      accept="image/*,.pdf"
+                    /><span class="upload-icon">↑</span
+                    ><strong id="fileName">Upload student ID card</strong
+                    ><small>PNG, JPG or PDF — max 5 MB</small>
+                  </div></label
+                >
+              </div>
+              <div class="form-section">
+                <h3>2. Support Request Details</h3>
+                <div class="two-col">
+                  <label
+                    >Academic session / term<select id="supportPeriod" required>
+                      <option value="">Select academic session</option>
+                      <option>Harmattan Semester 2026/2027</option>
+                      <option>Rain Semester 2026/2027</option>
+                      <option>Summer Session 2027</option>
+                    </select></label
+                  ><label
+                    >Preferred food hamper<select id="packageType" required>
+                      <option value="">Select hamper type</option>
+                      <option>Grains & Staples Pack</option>
+                      <option>Nutritional Support Pack</option>
+                      <option>Halal / Vegetarian Option</option>
+                    </select></label
+                  >
+                </div>
+                <label
+                  >Briefly describe your current situation
+                  <span class="optional">(optional)</span
+                  ><textarea
+                    id="situation"
+                    rows="4"
+                    placeholder="Share any relevant financial or family challenges. This helps us prioritize aid fairly."
+                  ></textarea></label
+                ><label class="check-label"
+                  ><input type="checkbox" id="urgency" />
+                  <strong>Emergency Request:</strong> I am in immediate distress
+                  and require emergency relief within 48 hours.</label
+                >
+              </div>
+              <div class="form-section">
+                <h3>3. Declaration</h3>
+                <label class="check-label"
+                  ><input type="checkbox" id="declaration" required /> I confirm
+                  that the information provided is accurate and agree to the
+                  ACFBI terms of fair distribution.</label
+                ><button class="primary-button" type="submit">
+                  Submit application <span>→</span>
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <section id="student-history" class="student-page hidden">
+            <div class="page-title">
+              <div>
+                <p class="eyebrow">YOUR REQUESTS</p>
+                <h2>Application history</h2>
+                <p>
+                  Track your semester cohort and emergency relief applications.
+                </p>
+              </div>
+              <button class="primary-button" data-student-page="apply">
+                New request <span>+</span>
+              </button>
+            </div>
+            <div class="card table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>APPLICATION</th>
+                    <th>SUBMITTED</th>
+                    <th>HAMPER TYPE</th>
+                    <th>STATUS</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="historyBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="student-schedule" class="student-page hidden">
+            <div class="page-title">
+              <div>
+                <p class="eyebrow">BI-WEEKLY PICKUP DETAILS</p>
+                <h2>Distribution schedule</h2>
+                <p>
+                  Collect approved food packages at the designated campus
+                  center.
+                </p>
+              </div>
+            </div>
+            <div class="schedule-layout">
+              <div class="card schedule-card">
+                <div class="schedule-date">
+                  <div>
+                    <span>TBD</span><strong>--</strong><small>---</small>
+                  </div>
+                  <div>
+                    <p class="eyebrow">COLLECTION APPOINTMENT</p>
+                    <h3>Pick-up Details</h3>
+                    <p>Collection window details appear here once approved.</p>
+                  </div>
+                </div>
+                <div class="schedule-info">
+                  <p>
+                    <span>⌖</span><strong>Campus Food Bank Centre</strong
+                    ><br /><small>Ground floor, Student Union Building</small>
+                  </p>
+                  <p>
+                    <span>▣</span
+                    ><strong>Bring student ID & collection code</strong
+                    ><br /><small
+                      >Your verification code:
+                      <b id="collectionCode">N/A</b></small
+                    >
+                  </p>
+                </div>
+                <button class="secondary-button" id="addCalendar">
+                  ＋ Add to calendar
+                </button>
+              </div>
+              <div class="card pickup-note">
+                <span>☀</span>
+                <h3>Dignified & discreet collection</h3>
+                <p>
+                  Please arrive with your student ID during your allocated
+                  window. If you cannot attend, notify your campus coordinator
+                  in advance.
+                </p>
+                <button class="text-button" id="contactSupport2">
+                  Contact coordinator →
+                </button>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- ADMIN PORTAL -->
+        <section id="adminView" class="admin-view hidden">
+          <header class="admin-header">
+            <div class="brand compact">
+              <span class="brand-mark"
+                ><span></span><span></span><span></span></span
+              ><span>ACFB<span>I</span></span>
+            </div>
+            <div class="admin-title">
+              <p class="eyebrow">ADMIN PORTAL</p>
+              <h2>Campus Food Bank Management</h2>
+            </div>
+            <div class="admin-right">
+              <button class="icon-button" id="adminNotification">
+                ♧<i></i>
+              </button>
+              <button class="profile-button" id="adminProfile">
+                <span>YI</span><strong>Yusuf Iteoluwakiishi</strong><b>⌄</b>
+              </button>
+            </div>
+          </header>
+
+          <div class="admin-body">
+            <aside class="admin-sidebar">
+              <button class="admin-nav active" data-admin-page="admin-overview">
+                <span>▦</span> Overview
+              </button>
+              <button class="admin-nav" data-admin-page="admin-applications">
+                <span>▤</span> Applications <b id="pendingBadge">0</b>
+              </button>
+              <button class="admin-nav" data-admin-page="admin-distribution">
+                <span>□</span> Distribution
+              </button>
+              <button class="admin-nav" data-admin-page="admin-reports">
+                <span>◔</span> Reports & analytics
+              </button>
+              <div class="admin-bottom">
+                <button class="admin-nav" id="adminLogout">
+                  <span>⇥</span> Sign out
+                </button>
+              </div>
+            </aside>
+
+            <main class="admin-main">
+              <section id="admin-overview" class="admin-page">
+                <div class="page-title">
+                  <div>
+                    <p class="eyebrow">OVERVIEW</p>
+                    <h1>Good morning, Yusuf.</h1>
+                    <p>ACFBI campus food assistance operations summary.</p>
+                  </div>
+                  <button class="secondary-button" id="exportSummary">
+                    ⇩ Export summary
+                  </button>
+                </div>
+                <div class="admin-stat-grid">
+                  <article>
+                    <span class="metric-icon yellow">▤</span>
+                    <p>Pending screening</p>
+                    <h2 id="pendingCount">0</h2>
+                    <small>Awaiting review</small>
+                  </article>
+                  <article>
+                    <span class="metric-icon green">✓</span>
+                    <p>Enrolled cohort</p>
+                    <h2 id="approvedCount">0</h2>
+                    <small>Verified for semester</small>
+                  </article>
+                  <article>
+                    <span class="metric-icon purple">▣</span>
+                    <p>Hampers distributed</p>
+                    <h2 id="distributedCount">0</h2>
+                    <small>Total handovers</small>
+                  </article>
+                  <article>
+                    <span class="metric-icon coral">⌁</span>
+                    <p>Emergency requests</p>
+                    <h2 id="urgentCount">0</h2>
+                    <small class="urgent-copy">48-hour priority</small>
+                  </article>
+                </div>
+                <div class="admin-grid">
+                  <article class="card admin-list-card">
+                    <div class="card-heading">
+                      <div>
+                        <h2>Applications awaiting review</h2>
+                        <p>Prioritize emergency requests first.</p>
+                      </div>
+                      <button
+                        class="text-button"
+                        data-admin-page="admin-applications"
+                      >
+                        View all →
+                      </button>
+                    </div>
+                    <div id="awaitingList" class="awaiting-list"></div>
+                  </article>
+                  <article class="card activity-card">
+                    <div class="card-heading">
+                      <div>
+                        <h2>Recent program activity</h2>
+                        <p>Latest updates across intake and distributions.</p>
+                      </div>
+                    </div>
+                    <div id="activityList" class="activity-list"></div>
+                  </article>
+                </div>
+              </section>
+
+              <section id="admin-applications" class="admin-page hidden">
+                <div class="page-title">
+                  <div>
+                    <p class="eyebrow">STUDENT REQUESTS</p>
+                    <h1>Applications & Screening</h1>
+                    <p>
+                      Screen student applications for cohort enrollment or
+                      emergency aid.
+                    </p>
+                  </div>
+                  <button class="secondary-button" id="exportApplications">
+                    ⇩ Export data
+                  </button>
+                </div>
+                <div class="filter-row">
+                  <div class="search-box">
+                    ⌕
+                    <input
+                      id="applicationSearch"
+                      placeholder="Search student name or matric number"
+                    />
+                  </div>
+                  <select id="statusFilter">
+                    <option value="all">All statuses</option>
+                    <option value="Pending">Pending screening</option>
+                    <option value="Approved">Approved / Enrolled</option>
+                    <option value="Rejected">Declined</option>
+                  </select>
+                </div>
+                <div class="card table-card admin-table-card">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>STUDENT</th>
+                        <th>SESSION / HAMPER</th>
+                        <th>NEED LEVEL</th>
+                        <th>SUBMITTED</th>
+                        <th>STATUS</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="adminApplicationsBody"></tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section id="admin-distribution" class="admin-page hidden">
+                <div class="page-title">
+                  <div>
+                    <p class="eyebrow">CAMPUS FOOD BANK CENTRE</p>
+                    <h1>Distribution schedule</h1>
+                    <p>
+                      Organize bi-weekly collection slots and record hampers
+                      distributed.
+                    </p>
+                  </div>
+                  <button class="primary-button" id="newSlot">
+                    ＋ Add pickup slot
+                  </button>
+                </div>
+                <div class="distribution-grid">
+                  <article class="card">
+                    <h2>Upcoming collection slots</h2>
+                    <div id="sessionsList" class="sessions-list">
+                      <p
+                        style="
+                          color: #7b8b87;
+                          text-align: center;
+                          padding: 16px;
+                        "
+                      >
+                        No distribution slots scheduled.
+                      </p>
+                    </div>
+                  </article>
+                  <article class="card">
+                    <h2>Today’s hampers distributed</h2>
+                    <div class="collection-progress">
+                      <p><strong>0</strong> food hampers handed over</p>
+                      <button class="secondary-button" id="recordCollection">
+                        Record handover
+                      </button>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+              <section id="admin-reports" class="admin-page hidden">
+                <div class="page-title">
+                  <div>
+                    <p class="eyebrow">PROGRAM EVALUATION</p>
+                    <h1>Reports & analytics</h1>
+                    <p>
+                      Monitor program reach, cohort transitions, and emergency
+                      relief volume.
+                    </p>
+                  </div>
+                  <button class="secondary-button" id="downloadReport">
+                    ⇩ Download report
+                  </button>
+                </div>
+                <div class="analytics-grid">
+                  <article class="card full-span insight-table">
+                    <h2>ACFBI Demand & Impact Summary</h2>
+                    <p style="padding: 16px; color: #7b8b87">
+                      Analytics update automatically as student requests are
+                      processed.
+                    </p>
+                  </article>
+                </div>
+              </section>
+            </main>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop hidden" id="modalBackdrop">
+      <div class="modal" id="modal">
+        <button class="modal-close" id="modalClose">×</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+    <div id="toast" class="toast hidden"></div>
+    <script src="app.js?v=8"></script>
+  </body>
+</html>
